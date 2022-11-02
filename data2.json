@@ -5,39 +5,16 @@
         "content" : "쿤달",
         "price" : 34425
     },
-
     {
         "id" : 7,
         "title" : "SNOWMAN22 Table Stand Butter",
         "content" : "일광전구",
         "price" : 198000
     },
-
     {
         "id" : 8,
         "title" : "콜린스 인센스 스틱 홀더 포함(5종 택1)",
         "content" : "콜린스",
         "price" : 13900
-    },
-
-    {
-        "id" : 9,
-        "title" : "플라토 사이드 테이블",
-        "content" : "잭슨카멜레온",
-        "price" : 316800
-    },
-
-    {
-        "id" : 10,
-        "title" : "스피아노 망고 푸딩 단스탠드 SS-5900S",
-        "content" : "스피아노",
-        "price" : 55700
-    },
-
-    {
-        "id" : 11,
-        "title" : "Bow Wooden Pendant - Natural 보우 우든 펜던트",
-        "content" : "알론맨션",
-        "price" : 180000
     }
 ]
