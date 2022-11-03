@@ -1,0 +1,84 @@
+.App h1{font-weight:700;}
+
+.navbar-nav a{color:rgba(255,255,255,.5); padding:.5rem 1rem; transition:color .3s;}
+.navbar-nav a:hover{color:rgba(255,255,255,1)}
+
+.main_visual img{max-width:100%;}
+
+.prd_list{padding:0 1rem;}
+.prd_sort{text-align:right; margin:1rem 0 0;}
+.prd_item{margin:1rem 0;}
+.prd_item img{max-width:100%;}
+
+.prd_info{margin:1rem 0 0;}
+.prd_info span{display: block; font-size:.85rem;}
+.prd_info p{font-weight:500; margin:.45rem 0 1rem;}
+.prd_info strong{display: block; color:#ff4800; font-weight:700; font-size:.95rem;}
+.prd_info strong::after{content:'원'; font-size:.75rem;}
+
+
+.prd_more button{width:100%;}
+.prd_more .alert{text-align:center; font-size:.75rem; color:#999;}
+
+footer{text-align:center; border-top:1px solid #eee; padding:1rem; margin:2rem 0 0;}
+footer p{font-size:.75rem; color:rgba(0,0,0,.5)}
+
+
+#detail .detail_prd img{width:100%;}
+#detail .detail_prd .detail_prd_info{margin:1.25rem 0;}
+.detail_prd_info span{display:block; font-size:.85rem;}
+.detail_prd_info p{font-weight:700; margin:.6rem 0 1rem;}
+.detail_prd_info strong{display:block; color:#ff4800; font-weight:700;}
+.detail_prd_info strong::after{content:'원'; font-size:.75rem;}
+
+.detail_foot_fix{display:block;}
+.detail__btn{display:block!important;}
+.btn__buy{font-weight:700; border:0 none;}
+.btn__buy:hover{background:inherit;}
+
+
+.prd_loading{height:1rem; padding:1rem 0; box-sizing:unset}
+.prd_loading_inner{text-align:center;}
+.prd_loading_inner > div{margin:0 3px;}
+
+.detail_tabs_wrap{margin:4rem 0 5rem;}
+.tab_contents{margin:2rem 0 0; min-height:20rem}
+.detail_tabs_item h3{font-weight:700; margin-bottom:1rem;}
+.detail_tabs_item img{width: 100%; vertical-align:top;}
+.detail_tabs_item ul{padding-left:1rem;}
+.detail_tabs_item ul li{font-size:.75rem; line-height:1.4rem; list-style:disc;}
+/* .detail_tabs_item ul li::before{content:''; position:absolute; left:0; top:3px; display:block; width:3px; height: 3px;} */
+.detail_tabs_item ul li + li{margin-top:.5rem;}
+
+
+
+/* animation */
+.fade-start{opacity: 0;}
+.fade-start.end{opacity: 1; transition:all 1s;}
+
+
+#about{background:#212529;}
+#about .intro{padding:4rem 2.5rem 2rem;}
+#about .intro h2{font-family:Georgia, 'Times New Roman', Times, serif; font-weight:700; color:#fff; font-size:3rem;}
+#about .intro p{margin:2rem 0 0; color:#fff; font-size:.9rem; line-height: 1.8;}
+
+#about .intro_tab{padding:3rem 0 0; display:flex; align-items:center; justify-content: space-between; gap:0;}
+#about .intro_tab button{flex:1 1 50%; line-height:2rem; color:#fff;}
+#about .intro_tab .nav-item{flex:1 1 50%; line-height:2rem; color:#fff; text-align:center;}
+#about .intro_tab a{border-radius:0; color:#fff;}
+#about .intro_tab a.active{background:#fff; color:#212529; font-weight:700}
+
+
+.about_cont_wrap{background:#fff; padding:3rem 2rem; min-height:20rem;}
+#shopping h2{font-size:1.25rem; font-weight:700;}
+#shopping p{font-size:.8rem; line-height:1.6; margin:1rem 0 0;}
+#shopping ul{margin:2rem 0 0;}
+#shopping ul li{box-sizing:Border-box; padding:1rem; font-size:.8rem; margin: 1rem 0 0; border:1px solid #eee;}
+#shopping ul li strong{display: block; font-weight:700;}
+#shopping ul li span{display: block; margin:.5rem 0 0;}
+
+#delivering h2{font-size:1.25rem; font-weight:700;}
+#delivering p{font-size:.8rem; line-height:1.6; margin:1rem 0 0;}
+#delivering .about_brand_wrap{position:relative; height: 250px; overflow: hidden; margin:2rem -2rem 0;}
+#delivering .about_brand{position:absolute; left:50%; top:0;}
+#delivering .about_brand img{width: 1500px;}
