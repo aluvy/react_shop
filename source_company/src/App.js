@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Routes, Route, Link, Outlet, useNavigate } from "react-router-dom";
 import { Container, Navbar, Nav, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
 import axios from "axios";
+import { gsap, TweenMax } from 'gsap';
 import * as common from "./script.js";
 import './App.css';
 import data from './data.js';
@@ -140,6 +141,7 @@ function Product({prd, i}){
 
 function About(props) {
     let navigate = useNavigate();
+
     return (
         <article id="about">
             <div className="intro">
@@ -200,29 +202,58 @@ function About_Shopping(){
 }
 
 function About_Delivering(){
+    
+    const ref = useRef(null);
+    
+    function imageMotion(){
+        const elem = ref.current;
+
+        let tl = gsap.timeline({
+            repeat:-1,
+            repeatDelay:2,
+            // yoyo:true
+        });
+
+        tl.set( elem.querySelector(".gsap-image"),
+            { x: '100%' },
+        );
+
+        tl.to( elem.querySelector(".gsap-image"),
+            { x: -1500, duration:10, ease: 'none' },
+        );
+    }
+
     useEffect(()=>{
 
-        let brand = document.querySelector(".about_brand");
-        let left = Math.floor(window.innerWidth / 2);
-        let animation = setInterval(()=>{
-            brand.style.left = `${left}px`;
-            left = left-1;
-            if( left < -1200 ){ clearInterval(animation); }
-        }, 10);
+        imageMotion();
+
+        // let brand = document.querySelector(".about_brand");
+        // let left = Math.floor(window.innerWidth / 2);
+        // let animation = setInterval(()=>{
+        //     brand.style.left = `${left}px`;
+        //     left = left-1;
+        //     if( left < -1200 ){ clearInterval(animation); }
+        // }, 10);
+
 
         return ()=>{
-            clearInterval(animation);
-            left = window.innerWidth / 2;
+            // clearInterval(animation);
+            // left = window.innerWidth / 2;
         }
     }, [])
     return (
-        <div id="delivering">
+        <div id="delivering" ref={ref}>
             <h2>Delivering product and Brand Value</h2>
             <p>29CM는 로컬부터 글로벌 브랜드까지 다양한 브랜드를 검토하여, 브랜드 포트폴리오를 확대하고 있습니다.
                 브랜드에게, 단기적인 매출만이 아닌 장기적인 브랜드 가치 극대화를 지향하는 차별화된 파트너십을 제공하고 있습니다.</p>
-            <div className="about_brand_wrap">
+            {/* <div className="about_brand_wrap">
                 <div className="about_brand">
                     <img src={process.env.PUBLIC_URL + `/img/making_brand_pc.jpg`} alt="brand value" />
+                </div>
+            </div> */}
+            <div style={{ overflow:"hidden", margin:"3rem -2rem 0" }}>
+                <div className="gsap-image">
+                    <img src={process.env.PUBLIC_URL + `/img/making_brand_pc.jpg`} alt="brand value" style={{width:"1500px"}} />
                 </div>
             </div>
         </div>
