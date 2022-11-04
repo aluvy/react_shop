@@ -1,3 +1,4 @@
+.App{padding-top:48px;}
 .App h1{font-weight:700;}
 
 .navbar-nav a{color:rgba(255,255,255,.5); padding:.5rem 1rem; transition:color .3s;}

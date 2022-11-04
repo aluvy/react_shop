@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Navbar, Nav, Button, Form, Row, Col } from 'react-bootstrap';
 import * as common from "../script.js";
+// import ScrollTop from '../component/ScrollTop.js';
 
 function Detail({prd}){
 
@@ -27,6 +28,7 @@ function Detail({prd}){
 
     return(
         <article id="detail" className={`fade-start ${animation}`}>
+			{/* <ScrollTop /> */}
             <div className="detail_prd">
                 <img src={process.env.PUBLIC_URL + `/img/product${usePrd.id}.jpg`} alt="product" />
 				<Container fluid>

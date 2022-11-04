@@ -1,3 +1,9 @@
+// scrollTop
+export function scrollTop(){
+    window.scrollTo(0,0);
+}
+
+
 // 금액 콤마(,) 표시
 export function format_money(item){
     if( item == null ){ return "-"; }
