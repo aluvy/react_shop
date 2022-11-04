@@ -1,10 +1,11 @@
 .App{padding-top:48px;}
-.App h1{font-weight:700;}
+.App .gnb h1{font-weight:700;}
 
 .navbar-nav a{color:rgba(255,255,255,.5); padding:.5rem 1rem; transition:color .3s;}
 .navbar-nav a:hover{color:rgba(255,255,255,1)}
 
 .main_visual img{max-width:100%;}
+.main_visual .swiper-pagination-bullet-active{background:#212529;}
 
 .prd_list{padding:0 1rem;}
 .prd_sort{text-align:right; margin:1rem 0 0;}
@@ -23,6 +24,10 @@
 
 footer{text-align:center; border-top:1px solid #eee; padding:1rem; margin:2rem 0 0;}
 footer p{font-size:.75rem; color:rgba(0,0,0,.5)}
+
+.btn__scrolltop{position:fixed; right: 1rem; bottom:-4rem; display:flex; align-items:center; justify-content:center; width:3.5rem; height: 3.5rem; box-shadow: rgb(0 0 0 / 20%) 0px 3px 5px -1px, rgb(0 0 0 / 14%) 0px 6px 10px 0px, rgb(0 0 0 / 12%) 0px 1px 18px 0px; background:#212529; border-radius:3.5rem; color:#fff; transition:bottom .5s;}
+.btn__scrolltop svg{width:24px;}
+	.btn__scrolltop.on{bottom:1rem;}
 
 
 #detail .detail_prd img{width:100%;}
@@ -70,6 +75,7 @@ footer p{font-size:.75rem; color:rgba(0,0,0,.5)}
 #about .intro_tab a.active{background:#fff; color:#212529; font-weight:700}
 
 
+
 .about_cont_wrap{background:#fff; padding:3rem 2rem; min-height:20rem;}
 #shopping h2{font-size:1.25rem; font-weight:700;}
 #shopping p{font-size:.8rem; line-height:1.6; margin:1rem 0 0;}
@@ -83,3 +89,24 @@ footer p{font-size:.75rem; color:rgba(0,0,0,.5)}
 #delivering .about_brand_wrap{position:relative; height: 250px; overflow: hidden; margin:2rem -2rem 0;}
 #delivering .about_brand{position:absolute; left:50%; top:0;}
 #delivering .about_brand img{width: 1500px;}
+
+
+
+
+
+/* cart */
+#Cart{margin:2rem 0;}
+#Cart table{}
+#Cart table th,
+#Cart table td{padding:.5rem; border-bottom:1px solid #eee; text-align:center}
+#Cart table thead{border-bottom:2px solid #222;}
+
+
+/* latest_item */
+.latest_item + .latest_item {margin-top:1rem;}
+.latest_item img{width:100%;}
+.latest_item span{display:block; font-size:.75rem;}
+.latest_item p{display:block; font-size:.85rem; font-weight:700; margin:.5rem 0 .7rem;}
+.latest_item strong{display:block; color:#ff4800; font-weight:700;}
+.latest_item strong::after{content:'원'; font-size:.75rem;}
+.latest_item_info{display:flex; flex-direction: row; flex-wrap:wrap; align-items:center; justify-content: flex-start; align-content:center}

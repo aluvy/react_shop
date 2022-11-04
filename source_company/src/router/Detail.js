@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Navbar, Nav, Button, Form, Row, Col } from 'react-bootstrap';
 import * as common from "../script.js";
-// import ScrollTop from '../component/ScrollTop.js';
+
+import { addItem } from './../store/cartSlice.js';
 
 function Detail({prd}){
 
@@ -13,10 +15,32 @@ function Detail({prd}){
 	let [tab, setTab] = useState(0);
 	let [animation, setAnimation] = useState('');
 
+	let dispatch = useDispatch();
+	localStorageSetItem()
+
+	function localStorageSetItem(){
+		let latest = localStorage.getItem("latest");
+
+		if( latest === null ){
+			let obj = [];
+			obj.push( usePrd );
+			localStorage.setItem("latest", JSON.stringify(obj) )
+		} else {
+			latest = JSON.parse(latest);
+			let idx = latest.findIndex((x)=>{ return String(x.id) === String(usePrd.id) })
+			if( idx < 0 ){
+				latest.push(usePrd);
+				localStorage.setItem("latest", JSON.stringify(latest))
+			}
+		}		
+	}
+
+
 	useEffect(()=>{
 
 		let eventTimer = setTimeout(()=>{ setEvent(false) }, 2000);
 		let fadeTimer = setTimeout(()=>{ setAnimation('end') }, 100);
+		
 
 		return ()=>{
 			clearTimeout(eventTimer);
@@ -75,7 +99,8 @@ function Detail({prd}){
 				<Navbar bg="warning" variant="dark" fixed="bottom" className="detail_foot_fix">
 					<Container fluid className="detail__btn">
 						<div className="d-grid gap-2">
-							<Button variant="warning" size="lg" className="btn__buy" style={{fontSize:".95rem", lineHeight:"30px"}}>
+							<Button variant="warning" size="lg" className="btn__buy" style={{fontSize:".95rem", lineHeight:"30px"}}
+								onClick={()=>{ dispatch(addItem( { id:usePrd.id, name:usePrd.title, count: 1 } )) }}>
 								😎 2초 안에 구매하면 50% 할인!
 							</Button>
 						</div>
@@ -85,7 +110,8 @@ function Detail({prd}){
 				<Navbar bg="dark" variant="dark" fixed="bottom" className="detail_foot_fix">
 					<Container fluid className="detail__btn">
 						<div className="d-grid gap-2">
-							<Button variant="dark" size="lg" className="btn__buy">
+							<Button variant="dark" size="lg" className="btn__buy"
+								onClick={()=>{ dispatch(addItem( { id:usePrd.id, name:usePrd.title, count: 1 } )) }}>
 								Buy
 							</Button>
 						</div>
