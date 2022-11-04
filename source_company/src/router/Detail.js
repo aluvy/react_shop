@@ -16,35 +16,21 @@ function Detail({prd}){
 	let [animation, setAnimation] = useState('');
 
 	let dispatch = useDispatch();
-	localStorageSetItem()
-
-	function localStorageSetItem(){
-		let latest = localStorage.getItem("latest");
-
-		if( latest === null ){
-			let obj = [];
-			obj.push( usePrd );
-			localStorage.setItem("latest", JSON.stringify(obj) )
-		} else {
-			latest = JSON.parse(latest);
-			let idx = latest.findIndex((x)=>{ return String(x.id) === String(usePrd.id) })
-			if( idx < 0 ){
-				latest.push(usePrd);
-				localStorage.setItem("latest", JSON.stringify(latest))
-			}
-		}		
-	}
-
 
 	useEffect(()=>{
 
 		let eventTimer = setTimeout(()=>{ setEvent(false) }, 2000);
 		let fadeTimer = setTimeout(()=>{ setAnimation('end') }, 100);
-		
+
+		let latest = JSON.parse( localStorage.getItem("latest") )
+		let idx = latest.findIndex((x)=>{ return String(x.id) === String(usePrd.id) })
+		if( idx < 0 ){
+			latest.unshift(usePrd);
+			localStorage.setItem("latest", JSON.stringify(latest))
+		}
 
 		return ()=>{
 			clearTimeout(eventTimer);
-
 			clearTimeout(fadeTimer);
 			setAnimation('')
 		}

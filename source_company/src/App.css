@@ -103,6 +103,7 @@ footer p{font-size:.75rem; color:rgba(0,0,0,.5)}
 
 
 /* latest_item */
+.latest_item {display: block;}
 .latest_item + .latest_item {margin-top:1rem;}
 .latest_item img{width:100%;}
 .latest_item span{display:block; font-size:.75rem;}

@@ -16,29 +16,23 @@ import './App.css';
 import Detail from './router/Detail.js';
 import { About, AboutShopping, AboutDelivering } from './router/About.js';
 import Cart from './router/Cart.js';
+import ScrollTop from './component/ScrollTop.js';
 
 function App() {
 
     let [prd, setPrd] = useState(data);
     let [req, setReq] = useState(2);
-    let [scroll, setScroll] = useState('');
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    function handelScroll(){
-        if(window.scrollY >= 100){  setScroll('on');
-        } else {                    setScroll('');
-        }
-    }
+    let latest = JSON.parse(localStorage.getItem("latest")) ?? false;
 
     useEffect(()=>{
-        window.addEventListener('scroll', handelScroll);
-        return ()=>{
-            window.removeEventListener('scroll', handelScroll);
-        }
+
+        if(latest === false) { localStorage.setItem("latest", JSON.stringify( [] )) }
+
     }, []);
 
     return (
@@ -57,16 +51,6 @@ function App() {
                     </Nav>
                 </Container>
             </Navbar>
-
-            {/* const [show, setShow] = useState(false);
-
-            const handleClose = () => setShow(false);
-            const handleShow = () => setShow(true); */}
-
-            <ViewHistory show={show} handleClose={handleClose} handleShow={handleShow} />
-            
-
-
 
             <Routes>
                 <Route path="/" element={<Index prd={prd} setPrd={setPrd} req={req} setReq={setReq} />} />
@@ -87,13 +71,8 @@ function App() {
             </footer>
             
             
-            <div className={`btn__scrolltop ${scroll}`}>
-                <svg className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowUpIcon" fill="#fff">
-                    <path d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
-                </svg>
-            </div>
-             
-
+            <ViewHistory show={show} handleClose={handleClose} handleShow={handleShow} latest={latest} />
+            <ScrollTop />
         </div>
     );
 }
@@ -207,64 +186,26 @@ function Product({prd, i}){
     );
 }
 
-function ViewHistory({show, handleClose, handleShow}){
-
-    let [latest] = useState(localStorage.getItem("latest"));
-    let [latestShow] = useState(false);
-
-    
-
-    if( latest !== null ){
-        
-    }
-    // let [latest, setLatest] = useState(localStorage.getItem("latest"));
-    
-
-    function handelLatest(){
-
-        console.log('latest 1', latest)
-        // let setLatest(localStorage.getItem("latest"));
-        // console.log(latest)
-
-        // if( latest !== null || latest !== undefined ){
-        //     console.log('있')
-        //     // setLatest( JSON.parse(localStorage.getItem("latest")) );
-        //     setLatestShow(true);
-        // } else {
-        //     setLatestShow(false);
-        // }
-    }
-
-    useEffect(()=>{
-
-
-        handelLatest();
-        // console.log('latest 2', latest)
-
-        return ()=>{
-
-            // handelLatest();
-
-        }
-    }, [show, handleClose, handleShow, latestShow, latest])
+function ViewHistory({ show, handleClose, latest, latestShow }){
     
     return (
-        <Offcanvas show={show} onHide={handleClose} placement="end" backdrop="static">
+        <Offcanvas show={show} onHide={handleClose} placement="end" backdrop="true">
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title>a recent product</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
                 {
-                    latestShow === true
+                    latest !== false
                     ?
-                    latest.map((item, i)=>{return(
+                    latest.map((item, i)=>{return (
                         <Link to={`/detail/${item.id}`}
+                        className="latest_item"
                         key={i}
                         onClick={ ()=>{
                             common.scrollTop()
                             handleClose();
                         }}>
-                            <Row className="latest_item">
+                            <Row>
                                 <Col xs={4}>
                                     <img src={process.env.PUBLIC_URL + `/img/product${item.id}.jpg`} alt="product" />
                                 </Col>
