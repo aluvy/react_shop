@@ -1,5 +1,6 @@
 {
   "name": "shop",
+  "homepage": "https://aluvy.github.io/react_shop",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
