@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Container, Navbar, Nav, Button, Form, Row, Col } from 'react-bootstrap';
+import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Container, Navbar, Nav, Button, Form, Row, Col, Modal } from 'react-bootstrap';
 import * as common from "../script.js";
 
 import { addItem } from './../store/cartSlice.js';
@@ -15,26 +15,32 @@ function Detail({prd}){
 	let [tab, setTab] = useState(0);
 	let [animation, setAnimation] = useState('');
 
+	let [modalShow, setModalShow] = useState(false);
+
 	let dispatch = useDispatch();
 
 	useEffect(()=>{
 
 		let eventTimer = setTimeout(()=>{ setEvent(false) }, 2000);
 		let fadeTimer = setTimeout(()=>{ setAnimation('end') }, 100);
-
-		let latest = JSON.parse( localStorage.getItem("latest") )
-		let idx = latest.findIndex((x)=>{ return String(x.id) === String(usePrd.id) })
-		if( idx < 0 ){
-			latest.unshift(usePrd);
-			localStorage.setItem("latest", JSON.stringify(latest))
-		}
-
+		
 		return ()=>{
 			clearTimeout(eventTimer);
+
 			clearTimeout(fadeTimer);
 			setAnimation('')
 		}
 	}, []);
+
+	useEffect(()=>{
+		console.log(usePrd)
+		let latest = JSON.parse( localStorage.getItem("latest") )
+		let idx = latest.findIndex( x => String(x.id) === String(usePrd.id) )
+		if( idx < 0 ){
+			latest.unshift(usePrd);
+			localStorage.setItem("latest", JSON.stringify(latest));
+		}
+	}, [usePrd])
 
     return(
         <article id="detail" className={`fade-start ${animation}`}>
@@ -86,7 +92,10 @@ function Detail({prd}){
 					<Container fluid className="detail__btn">
 						<div className="d-grid gap-2">
 							<Button variant="warning" size="lg" className="btn__buy" style={{fontSize:".95rem", lineHeight:"30px"}}
-								onClick={()=>{ dispatch(addItem( { id:usePrd.id, name:usePrd.title, count: 1 } )) }}>
+								onClick={()=>{
+									dispatch(addItem( { id:usePrd.id, name:usePrd.title, count: 1 } ))
+									setModalShow(true)
+								}}>
 								😎 2초 안에 구매하면 50% 할인!
 							</Button>
 						</div>
@@ -97,13 +106,19 @@ function Detail({prd}){
 					<Container fluid className="detail__btn">
 						<div className="d-grid gap-2">
 							<Button variant="dark" size="lg" className="btn__buy"
-								onClick={()=>{ dispatch(addItem( { id:usePrd.id, name:usePrd.title, count: 1 } )) }}>
+								onClick={()=>{
+									dispatch(addItem( { id:usePrd.id, name:usePrd.title, count: 1 } ))
+									setModalShow(true)
+								}}>
 								Buy
 							</Button>
 						</div>
 					</Container>
 				</Navbar>
 			}
+
+			<AddCart show={modalShow} onHide={() => setModalShow(false)} />
+
         </article>
     );
 }
@@ -116,9 +131,7 @@ function TabContents({tab}){
 	let [animation, setAnimation] = useState('');
 
 	useEffect(()=>{
-
 		let timer = setTimeout(()=>{ setAnimation('end') }, 100);
-
 		return ()=>{
 			clearTimeout(timer);
 			setAnimation('');
@@ -159,5 +172,33 @@ function TabContents({tab}){
 				</div>][tab]
 			}
 		</div>
+	)
+}
+
+
+
+function AddCart(props){
+
+	return (
+		<Modal
+			{...props}
+			size="lg"
+			aria-labelledby="contained-modal-title-vcenter"
+			centered
+			>
+			{/* <Modal.Header closeButton>
+			</Modal.Header> */}
+			<Modal.Body className="addCart__notice-wrap">
+				<div className="addCart__notice-text">
+					상품이 장바구니에 담겼습니다.
+				</div>
+				<div className="addCart__notice-btn">
+
+					<Link to="/cart"><Button variant="outline-dark">장바구니 바로가기</Button></Link>
+					<Button variant="dark" onClick={props.onHide}>쇼핑 계속하기</Button>
+
+				</div>
+			</Modal.Body>
+		</Modal>
 	)
 }

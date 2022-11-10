@@ -3,20 +3,23 @@ import * as common from "./../script.js";
 
 function ScrollTop(){
 	let [scroll, setScroll] = useState('');
+	
+	function handelScroll(){
+		if( window.scrollY >= 100 ){ setScroll('on');
+		} else {					 setScroll('');
+		}
+	}
 
-    function handelScroll(){
-        if(window.scrollY >= 100){  setScroll('on');
-        } else {                    setScroll('');
-        }
-    }
-    
-    useEffect(()=>{
-        window.addEventListener('scroll', handelScroll);
+	// const { pathname } = useLocation();
+	useEffect (()=>{
+		window.addEventListener("scroll", handelScroll);
+		// window.scrollTo(0,0);
 
-        return ()=>{
-            window.removeEventListener('scroll', handelScroll);
-        }
-    }, []);
+		return ()=>{			
+			window.addEventListener("scroll", handelScroll);
+		}
+
+	}, []);
 
 	return (
 		<div className={`btn__scrolltop ${scroll}`} onClick={common.scrollTop}>

@@ -111,3 +111,9 @@ footer p{font-size:.75rem; color:rgba(0,0,0,.5)}
 .latest_item strong{display:block; color:#ff4800; font-weight:700;}
 .latest_item strong::after{content:'원'; font-size:.75rem;}
 .latest_item_info{display:flex; flex-direction: row; flex-wrap:wrap; align-items:center; justify-content: flex-start; align-content:center}
+
+
+/* detail cart > modal */
+.addCart__notice-wrap{padding:2rem 0;}
+.addCart__notice-text{text-align:center; padding:1rem 0 2rem}
+.addCart__notice-btn{text-align:center; display:flex; align-items: center; justify-content: center; gap: 10px;}

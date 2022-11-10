@@ -24,15 +24,14 @@ function App() {
     let [req, setReq] = useState(2);
 
     const [show, setShow] = useState(false);
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     let latest = JSON.parse(localStorage.getItem("latest")) ?? false;
 
     useEffect(()=>{
-
         if(latest === false) { localStorage.setItem("latest", JSON.stringify( [] )) }
-
     }, []);
 
     return (
@@ -42,7 +41,6 @@ function App() {
                 <Container fluid>
                     <Navbar.Brand><h1><Link to="/" onClick={common.scrollTop}>React</Link></h1></Navbar.Brand>
                     <Nav className="me-auto">
-                        {/* <Link to="/" onClick={common.scrollTop}>Home</Link> */}
                         <Link to="/about/shopping" onClick={common.scrollTop}>About</Link>
                     </Nav>
                     <Nav>
@@ -69,10 +67,10 @@ function App() {
             <footer>
                 <p>&copy; React App</p>
             </footer>
-            
-            
+
             <ViewHistory show={show} handleClose={handleClose} handleShow={handleShow} latest={latest} />
             <ScrollTop />
+             
         </div>
     );
 }
@@ -186,7 +184,7 @@ function Product({prd, i}){
     );
 }
 
-function ViewHistory({ show, handleClose, latest, latestShow }){
+function ViewHistory({show, handleClose, latest, latestShow}){
     
     return (
         <Offcanvas show={show} onHide={handleClose} placement="end" backdrop="true">
@@ -197,13 +195,13 @@ function ViewHistory({ show, handleClose, latest, latestShow }){
                 {
                     latest !== false
                     ?
-                    latest.map((item, i)=>{return (
+                    latest.map((item, i)=>{return(
                         <Link to={`/detail/${item.id}`}
-                        className="latest_item"
-                        key={i}
-                        onClick={ ()=>{
-                            common.scrollTop()
-                            handleClose();
+                            className="latest_item"
+                            key={i}
+                            onClick={ ()=>{
+                                common.scrollTop()
+                                handleClose();
                         }}>
                             <Row>
                                 <Col xs={4}>
