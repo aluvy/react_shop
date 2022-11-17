@@ -23,24 +23,22 @@ function Detail({prd}){
 
 		let eventTimer = setTimeout(()=>{ setEvent(false) }, 2000);
 		let fadeTimer = setTimeout(()=>{ setAnimation('end') }, 100);
-		
+
 		return ()=>{
 			clearTimeout(eventTimer);
-
 			clearTimeout(fadeTimer);
 			setAnimation('')
 		}
 	}, []);
 
 	useEffect(()=>{
-		console.log(usePrd)
 		let latest = JSON.parse( localStorage.getItem("latest") )
-		let idx = latest.findIndex( x => String(x.id) === String(usePrd.id) )
+		let idx = latest.findIndex((x)=>{ return String(x.id) === String(usePrd.id) })
 		if( idx < 0 ){
 			latest.unshift(usePrd);
-			localStorage.setItem("latest", JSON.stringify(latest));
+			localStorage.setItem("latest", JSON.stringify(latest))
 		}
-	}, [usePrd])
+	},[usePrd])
 
     return(
         <article id="detail" className={`fade-start ${animation}`}>
@@ -118,7 +116,6 @@ function Detail({prd}){
 			}
 
 			<AddCart show={modalShow} onHide={() => setModalShow(false)} />
-
         </article>
     );
 }
@@ -131,7 +128,9 @@ function TabContents({tab}){
 	let [animation, setAnimation] = useState('');
 
 	useEffect(()=>{
+
 		let timer = setTimeout(()=>{ setAnimation('end') }, 100);
+
 		return ()=>{
 			clearTimeout(timer);
 			setAnimation('');

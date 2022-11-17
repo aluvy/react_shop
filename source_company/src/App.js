@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { Container, Navbar, Nav, Row, Col, Button, Spinner, Alert, Offcanvas } from 'react-bootstrap';
 import axios from "axios";
-
+// import { useQuery } from "react-query";
+import { useQuery } from '@tanstack/react-query' 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -13,10 +15,14 @@ import * as common from "./script.js";
 import data from './data.js';
 import './App.css';
 
-import Detail from './router/Detail.js';
-import { About, AboutShopping, AboutDelivering } from './router/About.js';
-import Cart from './router/Cart.js';
 import ScrollTop from './component/ScrollTop.js';
+
+import { About, AboutShopping, AboutDelivering } from './router/About.js';
+// import Detail from './router/Detail.js'
+// import Cart from './router/Cart.js'
+// const { About, AboutShopping, AboutDelivering } = lazy(() => import('./router/About.js'));
+const Detail = lazy(() => import('./router/Detail.js'));
+const Cart = lazy(()=> import('./router/Cart.js'));
 
 function App() {
 
@@ -24,7 +30,6 @@ function App() {
     let [req, setReq] = useState(2);
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -32,7 +37,16 @@ function App() {
 
     useEffect(()=>{
         if(latest === false) { localStorage.setItem("latest", JSON.stringify( [] )) }
-    }, []);
+    },[]);
+
+    
+    let result = useQuery(['작명'], ()=>{
+        return axios.get('https://codingapple1.github.io/userdata.json')
+        .then((res)=>{
+            console.log(res.data)
+            return res.data;
+        })
+    }, { staleTime : 2000 })
 
     return (
         <div className="App">
@@ -41,36 +55,44 @@ function App() {
                 <Container fluid>
                     <Navbar.Brand><h1><Link to="/" onClick={common.scrollTop}>React</Link></h1></Navbar.Brand>
                     <Nav className="me-auto">
+                        {/* <Link to="/" onClick={common.scrollTop}>Home</Link> */}
                         <Link to="/about/shopping" onClick={common.scrollTop}>About</Link>
                     </Nav>
                     <Nav>
                         <Link onClick={handleShow}>history</Link>
+                        <Link className="greeing">
+                            { result.isLoading && 'loading' }
+                            { result.error && 'error' }
+                            { result.data && result.data.name }
+                        </Link>
                         <Link to="/cart">🛒</Link>
                     </Nav>
                 </Container>
             </Navbar>
 
-            <Routes>
-                <Route path="/" element={<Index prd={prd} setPrd={setPrd} req={req} setReq={setReq} />} />
-                <Route path="/detail/:prdId" element={<Detail prd={prd} />} />
+            <Suspense fallback={<div>로딩중임</div>}>
+                <Routes>
+                    <Route path="/" element={<Index prd={prd} setPrd={setPrd} req={req} setReq={setReq} />} />
+                    <Route path="/detail/:prdId" element={<Detail prd={prd} />}/>
 
-                <Route path="/about" element={<About />}>
-                    <Route path="shopping" element={<AboutShopping />} />
-                    <Route path="delivering" element={<AboutDelivering />} />
-                </Route>
+                    <Route path="/about" element={<About />}>
+                        <Route path="shopping" element={<AboutShopping />} />
+                        <Route path="delivering" element={<AboutDelivering />} />
+                    </Route>
 
-                <Route path="/cart" element={<Cart />} />
+                    <Route path="/cart" element={<Cart />} />
 
-                <Route path="*" element={<div style={{padding:"2rem"}}>There's nothing here!</div>} />
-            </Routes>
+                    <Route path="*" element={<div style={{padding:"2rem"}}>There's nothing here!</div>} />
+                </Routes>
+            </Suspense>
 
             <footer>
                 <p>&copy; React App</p>
             </footer>
-
+            
+            
             <ViewHistory show={show} handleClose={handleClose} handleShow={handleShow} latest={latest} />
             <ScrollTop />
-             
         </div>
     );
 }
@@ -184,7 +206,7 @@ function Product({prd, i}){
     );
 }
 
-function ViewHistory({show, handleClose, latest, latestShow}){
+function ViewHistory({ show, handleClose, latest, latestShow }){
     
     return (
         <Offcanvas show={show} onHide={handleClose} placement="end" backdrop="true">
@@ -195,13 +217,13 @@ function ViewHistory({show, handleClose, latest, latestShow}){
                 {
                     latest !== false
                     ?
-                    latest.map((item, i)=>{return(
+                    latest.map((item, i)=>{return (
                         <Link to={`/detail/${item.id}`}
-                            className="latest_item"
-                            key={i}
-                            onClick={ ()=>{
-                                common.scrollTop()
-                                handleClose();
+                        className="latest_item"
+                        key={i}
+                        onClick={ ()=>{
+                            common.scrollTop()
+                            handleClose();
                         }}>
                             <Row>
                                 <Col xs={4}>
