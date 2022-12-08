@@ -70,7 +70,7 @@ function App() {
                 </Container>
             </Navbar>
 
-            <Suspense fallback={<div>로딩중임</div>}>
+            <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     <Route path="/" element={<Index prd={prd} setPrd={setPrd} req={req} setReq={setReq} />} />
                     <Route path="/detail/:prdId" element={<Detail prd={prd} />}/>

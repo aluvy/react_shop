@@ -38131,3 +38131,17 @@ source_company/node_modules/.bin/ansi-html.cmd
 source_company/node_modules/.bin/ansi-html
 source_company/node_modules/.bin/acorn.cmd
 source_company/node_modules/.bin/acorn
+source_company/node_modules/.cache/default-development/index.pack.old
+source_company/node_modules/.cache/default-development/index.pack
+source_company/node_modules/.cache/default-development/2.pack
+source_company/node_modules/.cache/default-development/1.pack
+source_company/node_modules/.cache/default-development/0.pack
+source_company/node_modules/.cache/.eslintcache
+source_company/node_modules/.cache/default-development/index.pack.old
+source_company/node_modules/.cache/default-development/index.pack
+source_company/node_modules/.cache/default-development/2.pack
+source_company/node_modules/.cache/default-development/1.pack
+source_company/node_modules/.cache/default-development/0.pack
+source_company/node_modules/.cache/.eslintcache
+*.pack
+*.pack

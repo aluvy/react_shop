@@ -3,8 +3,11 @@ import * as common from "./../script.js";
 
 function ScrollTop(){
 	let [scroll, setScroll] = useState('');
+    const pathname = window.location.pathname;  // /react_shop/detail/5
 
     function handelScroll(){
+        if( pathname.includes("/detail/") ){ return; }
+
         if(window.scrollY >= 100){  setScroll('on');
         } else {                    setScroll('');
         }
