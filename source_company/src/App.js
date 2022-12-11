@@ -43,7 +43,7 @@ function App() {
     let result = useQuery(['작명'], ()=>{
         return axios.get('https://codingapple1.github.io/userdata.json')
         .then((res)=>{
-            console.log(res.data)
+            // console.log(res.data)
             return res.data;
         })
     }, { staleTime : 2000 })
